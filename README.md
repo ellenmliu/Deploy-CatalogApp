@@ -1,10 +1,12 @@
 # Deploying Catalog App on AWS Lightsail
 Author: Ellen Liu
+
 Last Edit: 10/30/17
 
 In this project, we will be deploying a flask application, the catalog app, on to AWS Lightsail. We will be using Ubuntu 16.04 LTS.
 
 [Catalog App](http://ec2-34-215-197-22.us-west-2.compute.amazonaws.com/)
+
 [Catalog Github](https://github.com/ellenmliu/Catalog)
 IP: 34.215.197.22 Port 2200
 
