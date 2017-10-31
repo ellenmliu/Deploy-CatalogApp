@@ -11,14 +11,14 @@ In this project, we will be deploying a flask application, the catalog app, on t
 
 IP: 34.215.197.22 Port 2200
 
-# Set up AWS Lightsail
+## Set up AWS Lightsail
 1) Sign up or log into [AWS Lightsail](https://lightsail.aws.amazon.com/).
 2) Click on 'Create Instance'
 3) Select 'Linux/Unix'
 4) Click on 'OS Only' and select 'Ubuntu'
 5) Select a plan and name your instance. Click 'Create' when done
 
-# Set up Access to Instance via Terminal
+## Set up Access to Instance via Terminal
 We need to retrieve our SSH key pair to connect via terminal. We want to do this before changing the ports so we can log in. You can use the 'Connect using SSH' for now, but once the ports are changed, we won't be able to use it because it uses the default port.
 
 1) Go to 'Account' and click on 'SSH keys'
@@ -27,19 +27,19 @@ We need to retrieve our SSH key pair to connect via terminal. We want to do this
 4) We need to change permissions to it, so run `cdmod 600 <LIGHTSAILFILENAME>`
 5) Run `ssh USER@PUBLICIP -i <LIGHTSAILFILENAME>` (You can find the USER and PUBLICIP on Lightsail Instance page)
 
-# Update the Server
+## Update the Server
 ```
     sudo apt-get update
     sudo apt-get upgrade
 ```
 
-# Secure the Server
+## Secure the Server
 We will be changing the ports. Must do this in order or else you will be locked out of the server.
 1) Configure Lightsail firewall. To do so, go to the instance page and click on 'Nextworking'. There should be a Firewall section and 'add another'. Select Custom, TCP and the port range is 2200. Go ahead and save.
 2) On ubuntu server in terminal, run `sudo nano /etc/ssh/sshd_config` and change `Port 22` to `Port 2200`.
 3) Run `sudo service ssh restart`. Now when you login you use ssh `ssh USER@PUBLICIP -i <LIGHTSAILFILENAME> -p 2200`
 
-# Configure Firewall Rules
+## Configure Firewall Rules
 We want to only allow incoming connections for SSH(2200), HTTP(80), and NTP(123).
 1) Add the following to add those rule
 ```
@@ -54,12 +54,12 @@ You can use `sudo ufw status` to see if the ufw is active and `sudo ufw show add
 
 Check if you can login in. Run `exit` and then `ssh USER@PUBLICIP -i <LIGHTSAILFILENAME> -p 2200`. If you see `*** System restart required ***`, then run `sudo reboot` and log back in.
 
-# Creating a New User
+## Creating a New User
 Still logged in the instance, we will be creating a new user, grader.
 1) Run `sudo adduser grader`. Give it a password.
 2) To give it sudo access, we will create a file by running `sudo nano /etc/sudoers.d/grader` and write `grader ALL=(ALL) NOPASSWD:ALL` in the file
 
-# Create SSH for Grader
+## Create SSH for Grader
 In order to log in with the user we created, we need a SSH key pair.
 1) On your local machine, run `ssh-keygen`. It will ask where to save the key, so match with the directory of .ssh and then name the file however you want. You can enter in any passphrase for it or leave it blank.
 2) It will generate 2 files. The `.pub` file will be placed on the server. Go ahead and login as the grader. If you are logged in as ubuntu, run `sudo login grader` and provide the password. Make a directory that will for SSH
@@ -78,20 +78,20 @@ In order to log in with the user we created, we need a SSH key pair.
 ```
 5) To check your work, try to login in to grader using the command `ssh grader@PUBLICIP -i ~/.ssh/<FILENAME> -p 2200`
 
-# Change Timezone to UTC
+## Change Timezone to UTC
 Run `sudo timedatectl set-timezone UTC` and run `date` to check the timezone.
 
-# Set up Apache
+## Set up Apache
 1) We will set it up using `sudo apt-get install apache2`. If you paste in the IP address into your browser, you should see the Apache2 Ubuntu Default page letting you know that it works.
 2) Run `sudo apt-get install libapache2-mod-wsgi` so Apache can serve a Python mod_wsgi application.
 
-# Install and Configure PostgreSQL
+## Install and Configure PostgreSQL
 1) Install PostgreSQL by running `sudo apt-get install postgresql`
 2) Run `sudo nano etc/postgresql/9.5/main/pg_hba.conf` and 'under IPv4 local connections' it should have `127.0.0.1/32` and under 'IPv6 local connections' it should have `::1/128`. This prevents remote connects to PostgreSQL.
 3) To create a PostgreSQL user, we will run `sudo -u postgres createuser -P catalog` and set a password for it. The user has limited permissions.
 4) Create an empty 'catalog' database using `sudo -u postgres createdb -O catalog catalog`.
 
-# Install git and Setup Application
+## Install git and Setup Application
 1) Install using `sudo apt-get install git`.
 2) Change directory to `/var/www`
 3) Create the folder and give ownership to www-data using
@@ -144,7 +144,7 @@ python categoriesanditems.py
 ```
 14) On your browser, you can either go on the IP address or the AWS given URL.
 
-# Third Party Sources
+## Third Party Sources
 1) https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html
 2) https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
 3) http://alex.nisnevich.com/blog/2014/10/01/setting_up_flask_on_ec2.html
