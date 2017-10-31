@@ -25,7 +25,8 @@ We need to retrieve our SSH key pair to connect via terminal. We want to do this
 5) Run `ssh USER@PUBLICIP -i <LIGHTSAILFILENAME>` (You can find the USER and PUBLICIP on Lightsail Instance page)
 
 # Update the Server
-``` sudo apt-get update
+```
+    sudo apt-get update
     sudo apt-get upgrade
 ```
 
@@ -38,11 +39,12 @@ We will be changing the ports. Must do this in order or else you will be locked 
 # Configure Firewall Rules
 We want to only allow incoming connections for SSH(2200), HTTP(80), and NTP(123).
 1) Add the following to add those rule
-```sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow 2200/tcp
-sudo ufw allow www
-sudo ufw allow 123/udp
+```
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
+    sudo ufw allow 2200/tcp
+    sudo ufw allow www
+    sudo ufw allow 123/udp
 ```
 You can use `sudo ufw status` to see if the ufw is active and `sudo ufw show added` to check the list before enabling.
 2) Run `sudo ufw enable` to enable the set rules and check the status to see if all of the rules are correct.
@@ -58,12 +60,14 @@ Still logged in the instance, we will be creating a new user, grader.
 In order to log in with the user we created, we need a SSH key pair.
 1) On your local machine, run `ssh-keygen`. It will ask where to save the key, so match with the directory of .ssh and then name the file however you want. You can enter in any passphrase for it or leave it blank.
 2) It will generate 2 files. The `.pub` file will be placed on the server. Go ahead and login as the grader. If you are logged in as ubuntu, run `sudo login grader` and provide the password. Make a directory that will for SSH
-``` mkdir .ssh
+```
+    mkdir .ssh
     cd .ssh
 ```
 3) Create authorized_keys file using `sudo nano authorized_keys`. On your local machine, run `cat .ssh/<FILENAME.pub>` and copy that. Then paste the content into your authorized_keys file on the server page.
 4) Now we need to set the permissions.
-``` sudo chown grader:grader /home/grader/.ssh
+```
+    sudo chown grader:grader /home/grader/.ssh
     sudo chmod 700 /home/grader/.ssh
     sudo touch .ssh/authorized_keys
     sudo chown grader:grader /home/grader/.ssh/authorized_keys
