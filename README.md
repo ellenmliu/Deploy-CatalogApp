@@ -8,6 +8,7 @@ In this project, we will be deploying a flask application, the catalog app, on t
 [Catalog App](http://ec2-34-215-197-22.us-west-2.compute.amazonaws.com/)
 
 [Catalog Github](https://github.com/ellenmliu/Catalog)
+
 IP: 34.215.197.22 Port 2200
 
 # Set up AWS Lightsail
