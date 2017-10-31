@@ -150,3 +150,5 @@ python categoriesanditems.py
 3) http://alex.nisnevich.com/blog/2014/10/01/setting_up_flask_on_ec2.html
 4) https://help.ubuntu.com/community/PostgreSQL
 5) https://www.a2hosting.com/kb/developer-corner/apache-web-server/viewing-apache-log-files
+6) https://github.com/harushimo/linux-server-configuration
+7) https://github.com/SteveWooding/fullstack-nanodegree-linux-server-config
